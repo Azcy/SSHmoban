@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--<bean id="user" class="com.zcy.test4.beans.User"/>-->
+    <bean id="loginAction" class="com.zcy.test4.web.action.LoginAction">
+        <property name="userService" ref="userService"/>
+        <!--<property name="user" ref="user"/>-->
+    </bean>
+    <bean id="userDao" class="com.zcy.test4.model.dao.impl.UserDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean id="userServiceBase" class="com.zcy.test4.service.impl.UserServiceImpl">
+        <property name="userDao" ref="userDao"/>
+    </bean>
+    <bean id="userService" parent="transactionBase">
+        <property name="target" ref="userServiceBase"/>
+    </bean>
+
+</beans>
